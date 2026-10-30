@@ -22,6 +22,12 @@ PATTERNS = {
 }
 
 
+# Compiled once at import. scan_file used to hand the raw strings to
+# finditer for every file in a tree, recompiling the same five patterns
+# (behind the re module cache, but still per file bookkeeping).
+COMPILED_PATTERNS = {name: re.compile(pat, re.MULTILINE | re.IGNORECASE) for name, pat in PATTERNS.items()}
+
+
 def setup_argparse():
     """
     Sets up the argument parser for the command-line interface.
@@ -47,7 +53,12 @@ def scan_file(file_path, exclude_extensions):
     Returns:
         list: A list of dictionaries, each representing a detected secret.
     """
-    if any(file_path.endswith(ext) for ext in exclude_extensions):
+    # Compare the real suffix, lowercased. A plain endswith matched files
+    # whose names merely ended in the letters (a file called "scrappy"
+    # against ".py" style entries never matched, but "notes.TXT" slipped
+    # past a ".txt" exclusion), so case decided whether a file was scanned.
+    suffix = os.path.splitext(file_path)[1].lower()
+    if suffix in {ext.lower() for ext in exclude_extensions}:
         logging.debug(f"Skipping file due to extension: {file_path}")
         return []
 
@@ -62,9 +73,9 @@ def scan_file(file_path, exclude_extensions):
         return []
 
     secrets = []
-    for name, pattern in PATTERNS.items():
+    for name, pattern in COMPILED_PATTERNS.items():
         try:
-            matches = re.finditer(pattern, content, re.MULTILINE | re.IGNORECASE)
+            matches = pattern.finditer(content)
             for match in matches:
                 secret = {
                     "file": file_path,
