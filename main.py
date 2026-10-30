@@ -28,6 +28,21 @@ PATTERNS = {
 COMPILED_PATTERNS = {name: re.compile(pat, re.MULTILINE | re.IGNORECASE) for name, pat in PATTERNS.items()}
 
 
+def mask_secret(value):
+    """
+    Redacts a matched secret for display, keeping its length visible.
+
+    The scanner exists to find secrets; printing each one in full, right
+    under the file it was found in, turns the terminal output and any
+    captured log of it into a second copy of the leak. The first and last
+    few characters stay visible so a finding can still be matched against
+    the source line by eye.
+    """
+    if len(value) <= 8:
+        return "*" * len(value)
+    return value[:4] + "*" * (len(value) - 8) + value[-4:]
+
+
 def setup_argparse():
     """
     Sets up the argument parser for the command-line interface.
@@ -179,7 +194,7 @@ def main():
         for secret in secrets:
             print(f"  File: {secret['file']}")
             print(f"  Type: {secret['name']}")
-            print(f"  Match: {secret['match']}")
+            print(f"  Match: {mask_secret(secret['match'])}")
             highlighted_code = highlight_code(secret["file"], secret)
             if highlighted_code:
                 print("  Code Snippet:\n")
