@@ -75,17 +75,17 @@ def scan_file(file_path, exclude_extensions):
     suffix = os.path.splitext(file_path)[1].lower()
     if suffix in {ext.lower() for ext in exclude_extensions}:
         logging.debug(f"Skipping file due to extension: {file_path}")
-        return []
+        return [], False
 
     try:
         with open(file_path, 'r', encoding='utf-8') as f:
             content = f.read()
     except UnicodeDecodeError as e:
         logging.warning(f"Could not decode file {file_path}: {e}")
-        return []
+        return [], True
     except Exception as e:
         logging.error(f"Error reading file {file_path}: {e}")
-        return []
+        return [], True
 
     secrets = []
     for name, pattern in COMPILED_PATTERNS.items():
@@ -103,7 +103,7 @@ def scan_file(file_path, exclude_extensions):
         except re.error as e:
             logging.error(f"Regex error for pattern '{name}': {e}")
 
-    return secrets
+    return secrets, False
 
 
 def scan_directory(dir_path, exclude_extensions):
@@ -118,11 +118,15 @@ def scan_directory(dir_path, exclude_extensions):
         list: A list of dictionaries, each representing a detected secret.
     """
     secrets = []
+    unreadable = []
     for root, _, files in os.walk(dir_path):
         for file in files:
             file_path = os.path.join(root, file)
-            secrets.extend(scan_file(file_path, exclude_extensions))
-    return secrets
+            found, failed = scan_file(file_path, exclude_extensions)
+            secrets.extend(found)
+            if failed:
+                unreadable.append(file_path)
+    return secrets, unreadable
 
 
 def highlight_code(file_path, secret):
@@ -148,15 +152,22 @@ def highlight_code(file_path, secret):
             except Exception:
                 lexer = None
 
+        snippet_start = max(0, secret["start"] - 100)
+        snippet_end = min(len(content), secret["end"] + 100)
+        snippet = content[snippet_start:snippet_end]
+        # Redact every pattern match inside the snippet, not only the
+        # finding that produced it. A nearby secret inside the context
+        # window would otherwise be printed in full, which is the leak
+        # the Match line mask was added to stop.
+        for pattern in COMPILED_PATTERNS.values():
+            snippet = pattern.sub(lambda m: mask_secret(m.group(0)), snippet)
+
         if lexer:
             formatter = Terminal256Formatter(style='fruity')  # Choose a style
-            snippet_start = max(0, secret["start"] - 100)
-            snippet_end = min(len(content), secret["end"] + 100)
-            snippet = content[snippet_start:snippet_end]
             highlighted_code = highlight(snippet, lexer, formatter)
             return highlighted_code
         else:
-            return f"No lexer found for {file_path}.  Plain text snippet:\n{content[max(0, secret['start'] - 50):min(len(content), secret['end'] + 50)]}"
+            return f"No lexer found for {file_path}.  Plain text snippet:\n{snippet}"
     except Exception as e:
         logging.error(f"Error highlighting code for {file_path}: {e}")
         return ""
@@ -179,12 +190,15 @@ def main():
         logging.error(f"Path does not exist: {path}")
         sys.exit(1)
 
+    unreadable = []
     if os.path.isfile(path):
         logging.info(f"Scanning file: {path}")
-        secrets = scan_file(path, exclude_extensions)
+        secrets, failed = scan_file(path, exclude_extensions)
+        if failed:
+            unreadable.append(path)
     elif os.path.isdir(path):
         logging.info(f"Scanning directory: {path}")
-        secrets = scan_directory(path, exclude_extensions)
+        secrets, unreadable = scan_directory(path, exclude_extensions)
     else:
         logging.error(f"Invalid path: {path}. Must be a file or directory.")
         sys.exit(1)
@@ -200,8 +214,13 @@ def main():
                 print("  Code Snippet:\n")
                 print(highlighted_code)
             print("-" * 40)
-    else:
+    elif not unreadable:
         print("No secrets found.")
+
+    if unreadable:
+        print(f"Scan incomplete: could not read {len(unreadable)} file(s): {', '.join(unreadable)}")
+        logging.error(f"Scan incomplete: could not read {len(unreadable)} file(s).")
+        sys.exit(1)
 
 if __name__ == "__main__":
     main()
