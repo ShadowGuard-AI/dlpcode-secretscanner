@@ -13,9 +13,16 @@ from pygments.formatters import Terminal256Formatter
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 # Define regular expressions for common secrets
+# The API Key pattern has no word boundaries, so a token longer than
+# 45 characters matches in 45 character pieces and one real key can
+# be reported several times at shifting offsets.
 PATTERNS = {
     "API Key": r"[a-zA-Z0-9]{32,45}",  # Example: Long alphanumeric string
     "AWS Access Key ID": r"AKIA[0-9A-Z]{16}",
+    # The secret key entry starts with the same AKIA shape as the ID
+    # entry and then asks for 40 key characters after a line break.
+    # A bare secret key on its own line, with no access key ID above
+    # it, never matches this pattern at all.
     "AWS Secret Access Key": r"AKIA[0-9A-Z]{16}.*?[\r\n].*?[a-zA-Z0-9/+=]{40}",
     "Secret Key": r"sk-[a-zA-Z0-9]{48}",
     "Password": r"(password|pwd|pass)\s*[:=]\s*['\"]?[\w\d@#$%^&*()_+{}\[\]:;<>,.?\/~\\-]{6,}['\"]?",
@@ -141,6 +148,9 @@ def highlight_code(file_path, secret):
         str: The highlighted code snippet, or an empty string if an error occurs.
     """
     try:
+        # The file is read again here for every single finding, so a
+        # file with twenty matches is opened and read twenty times
+        # before the report finishes. Correct, just not cheap.
         with open(file_path, 'r', encoding='utf-8') as f:
             content = f.read()
 
