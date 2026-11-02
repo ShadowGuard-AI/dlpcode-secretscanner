@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 420" width="1200" height="420" role="img" aria-label="Canopy walkway scene in three bands">
+<rect width="1200" height="420" fill="#2e4a2e"/>
+<g fill="#4a6741"><ellipse cx="150" cy="40" rx="170" ry="60"/><ellipse cx="450" cy="30" rx="180" ry="65"/><ellipse cx="750" cy="40" rx="170" ry="60"/><ellipse cx="1050" cy="30" rx="180" ry="65"/>
+<animateTransform attributeName="transform" type="translate" values="0 0; 12 0; 0 0" dur="9s" repeatCount="indefinite"/></g>
+<g fill="#ffeeb4" opacity="0.35"><circle cx="300" cy="70" r="10"/><circle cx="620" cy="55" r="13"/><circle cx="900" cy="75" r="9"/>
+<animateTransform attributeName="transform" type="translate" values="0 0; 30 4; 0 0" dur="9s" repeatCount="indefinite"/></g>
+<line x1="60" y1="130" x2="420" y2="130" stroke="#5c4033" stroke-width="4"/><line x1="780" y1="125" x2="1140" y2="125" stroke="#5c4033" stroke-width="4"/>
+<g><rect x="80" y="215" width="1040" height="14" fill="#785838"/>
+<animateTransform attributeName="transform" type="rotate" values="0 600 220; 0.4 600 220; 0 600 220; -0.4 600 220; 0 600 220" dur="7s" repeatCount="indefinite"/></g>
+<rect x="1020" y="150" width="55" height="270" fill="#5c4033"/><rect x="1010" y="205" width="10" height="8" fill="#969696"/><polygon points="1008,222 1022,222 1018,234 1012,234" fill="#c8d4c0"/>
+<circle cx="1015" cy="240" r="0" fill="#c8d4c0"><animate attributeName="r" values="0;4;4;0" dur="6s" repeatCount="indefinite"/></circle>
+<rect x="700" y="150" width="40" height="52" fill="#bea05a" stroke="#5c4033" stroke-width="2"/>
+<g stroke="#4a6741" stroke-width="3" fill="none"><path d="M200 400 Q260 300 340 330"><animate attributeName="d" values="M200 400 Q260 380 300 385; M200 400 Q260 300 340 330" dur="12s" repeatCount="indefinite"/></path></g>
+<circle r="4" fill="#1c1a17"><animateMotion path="M660 175 L700 175" dur="5s" repeatCount="indefinite"/></circle>
+<g transform="translate(60 330)"><ellipse cx="0" cy="0" rx="16" ry="34" fill="#6e5a32" stroke="#5c4033" stroke-width="2"/>
+<animateTransform attributeName="transform" type="rotate" values="0; 3; 0" dur="8s" repeatCount="indefinite" additive="sum"/></g>
+<g fill="#c8d4c0"><circle cx="44" cy="368" r="3"><animateMotion path="M0 0 C 10 20, -10 40, 0 60" dur="6s" repeatCount="indefinite"/></circle></g>
+</svg>
