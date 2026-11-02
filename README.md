@@ -20,12 +20,12 @@ Matched secrets are masked in every part of the output, including the code snipp
 ![Major separator](sep-heavy.svg)
 
 ## Install
-`git clone https://github.com/ShadowStrikeHQ/dlpcode-secretscanner`
+`git clone https://github.com/ShadowGuard-AI/dlpcode-secretscanner`
 
 ![Minor separator](sep-light.svg)
 
 ## Usage
-`./dlpcode-secretscanner [params]`
+`python3 main.py path [options]`
 
 > Specimen note: masking keeps the first four and last four characters of a long match visible, with the middle filled by asterisks, and a match of eight characters or fewer is hidden whole.
 
@@ -45,7 +45,7 @@ Matched secrets are masked in every part of the output, including the code snipp
 ![Major separator](sep-heavy.svg)
 
 ## License
-Copyright (c) ShadowStrikeHQ
+This project is released under the MIT License. See the [LICENSE](LICENSE) file for details.
 
 ![Major separator](sep-heavy.svg)
 
