@@ -1,164 +1,45 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Dlpcode Secretscanner: what it is, how it runs, where it stops</title>
-<meta name="description" content="Dlpcode Secretscanner is one of my projects. The README in the repo is short, so this page sticks to what the files themselves show.">
-<style>
-:root {
-  --bg: #1e2014; --panel: #2c2e1e; --ink: #eeecdc;
-  --mut: #3b3e28;
-  --acc: #ceb25c; --acc2: #b2603e;
-  --line: #2c2e1e;
-}
-* { box-sizing: border-box; }
-body { margin: 0; background: var(--bg); color: var(--ink);
-  font-family: 'Segoe UI', system-ui, sans-serif; line-height: 1.55; }
-code, pre, .mono { font-family: 'Consolas', monospace; }
-a { color: var(--acc2); }
-.hero { padding: 3rem 6vw 1rem; }
-.hero img.banner { width: 100%; height: auto; border: 1px solid var(--line);
-  border-radius: 10px; }
-.logo { width: 92px; height: 92px; border-radius: 18px;
-  border: 1px solid var(--line); }
-h1 { font-size: 2.4rem; margin: 0.4em 0 0.1em; }
-h2 { border-bottom: 2px solid var(--acc); padding-bottom: 0.2em;
-  margin-top: 2em; }
-.lede { font-size: 1.15rem; max-width: 62ch; }
-main { padding: 0 6vw 3rem; max-width: 1180px; margin: 0 auto; }
-.grid { display: grid; gap: 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
-.card { background: var(--panel); border: 1px solid var(--line);
-  border-radius: 12px; padding: 1rem 1.2rem; }
-.card.pop { animation: rise 0.7s ease both; }
-@keyframes rise { from { opacity: 0; transform: translateY(14px); }
-  to { opacity: 1; transform: none; } }
-pre.code { background: #101014; color: #e8e6df; padding: 1rem 1.2rem;
-  border-radius: 12px; overflow-x: auto; font-size: 0.86rem;
-  border-left: 5px solid var(--acc); }
-table { border-collapse: collapse; width: 100%; }
-td, th { border-bottom: 1px solid var(--line); padding: 0.45rem 0.6rem;
-  text-align: left; }
-.shots { display: grid; gap: 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
-.shots img { width: 100%; height: auto; border: 1px solid var(--line);
-  border-radius: 10px; background: #f4f1e8; }
-footer { padding: 2rem 6vw; border-top: 1px solid var(--line);
-  color: var(--mut); }
-.rail { display: flex; gap: 1.2rem; align-items: flex-start; }
-.rail nav { position: sticky; top: 1rem; min-width: 180px; }
-@media (max-width: 760px) { .rail { flex-direction: column; }
-  .rail nav { position: static; } }
-@media (prefers-reduced-motion: reduce) {
-  .card.pop { animation: none; } * { scroll-behavior: auto; } }
-</style>
-</head>
-<body class="layout-term">
-<!-- This page exists for dlpcode-secretscanner alone: the layout (terminal-frame),
-     the colors, and the type were picked for this project, not
-     shared with the other project pages. The code block below is
-     copied from the file it names, line for line. If it looks
-     plain, that is because the project is plain, and I would
-     rather the page match the project than dress it up. The one
-     thing I will not do here is oversell: what this project does
-     not do is stated on the page, not hidden from it. -->
-<header class="hero">
-  <img class="logo" src="assets/logo.png" alt="Dlpcode Secretscanner logo">
-  <img class="banner" src="assets/banner.png" alt="">
-  <h1>Dlpcode Secretscanner</h1>
-  <p class="mono"><a href="https://github.com/ShadowGuard-AI/dlpcode-secretscanner">github.com/ShadowGuard-AI/dlpcode-secretscanner</a></p>
-</header>
+<!doctype html><html lang="en-GB"><head><meta charset="utf-8"><title>dlpcode-secretscanner: Jungle Canopy Research Station</title>
+<style>@font-face{font-family:Disp;src:url("fonts/BricolageGrotesque.ttf")}@font-face{font-family:Text;src:url("fonts/Bitter.ttf")}
+body{background:#f2e8c9;font-family:Text,serif;color:#191919;margin:0}main{max-width:920px;margin:0 auto;padding:28px}
+h1,h2,h3{font-family:Disp,sans-serif;color:#1e2a4a}section{background:#eadfc0;padding:18px 22px;margin:16px 0;border:2px solid #5c4033}
+img{max-width:100%}button{background:#5a7d3f;color:#c8d4c0;border:0;border-bottom:6px solid #5c4033;padding:12px 18px;margin:4px;font-family:Disp,sans-serif}
+button:focus{outline:3px solid #c9a227}pre{white-space:pre-wrap}.mask{color:#b91c2c}.mark{color:#8a6d00}</style></head><body><main>
+<img src="intro-banner.png" alt="Introduction banner: the canopy station before any name is given">
+<h1>dlpcode-secretscanner: Jungle Canopy Research Station</h1>
+<img src="logo.png" alt="Logo"><img src="banner.png" alt="Wordmark banner">
+<img src="scene.svg" alt="Animated scene in three bands">
+<div><button type="button">Cross and Scan</button><button type="button">Show the Patrol Notes</button><button type="button">Set Aside by Suffix</button></div>
+<h3>Five Shapes on the Watch List</h3><h3>First Four and Last Four Stay Visible</h3><h3>Windows of One Hundred Characters</h3><h3>Unreadable Means Incomplete</h3><h3>Findings Alone Keep Exit Zero</h3>
+<section><h2>First sheet: the job and its boundary</h2><p>dlpcode-secretscanner: Jungle Canopy Research Station states the job plainly. The program scans one code file, or a whole directory tree walked without exception, matching text against five written pattern shapes for secrets that should never have been committed. What it finds, it prints in the terminal: the file, the kind, a masked form of the match, and a highlighted window of the surrounding code. It edits nothing, deletes nothing, and writes no report file.</p></section>
+<section><h2>Second sheet: the five pattern kinds</h2><p>No secret value, no sample line of code containing one, and no copied pattern string is printed on this sheet. An application key shape: thirty two to forty five alphanumeric characters in a run. An Amazon cloud identifier shape: a fixed four letter prefix followed by sixteen capitals or digits. An Amazon cloud secret shape: that same identifier shape, then within the following lines a run of forty key characters, a two part construction. A secret key shape: a short fixed prefix with a hyphen, then forty eight alphanumeric characters. A password shape: one of three password words, an equals sign or a colon, then at least six characters drawn from a broad symbol set, quotes optional around them.</p></section>
+<section><h2>Third sheet: the one need</h2><p>Python 3, and Pygments at 2.16.1 or later, the single line of the requirements file. Pygments is imported at the head of main.py, so a machine without it cannot reach even the help text. That fact stands beside the requirement, at the same size.</p></section>
+<section><h2>Fourth sheet: install, repaired</h2><p>On this site only, the organisation in the clone line is given correctly as ShadowGuard-AI, hyphenated: git clone https://github.com/ShadowGuard-AI/dlpcode-secretscanner. The README line names a different organisation altogether, and the repair is declared here rather than passed off as the original.</p></section>
+<section><h2>Fifth sheet: the working form</h2><p>The working form the README never actually gives is: python3 main.py, then the path, then any options. The README usage line instead shows an executable named after the repo, which does not exist; this site prints the interpreter form and flags the substitution in the defects recorded here. The path is positional and compulsory.</p></section>
+<section><h2>Sixth sheet: controls in parser order</h2><p>Path first, one file or one directory. Verbose second, short and long forms, a switch that lowers the logging to debug level, under which excluded files announce their skipping. Exclude last, short and long forms, taking a comma separated list of file extensions, empty by default. Exclusion compares the true suffix of the file, lowercased, against the list as supplied, so an entry written without its leading dot matches nothing at all. Help stands at the foot of the list, as usual.</p></section>
+<section><h2>Seventh sheet: the printout</h2><p>A heading announces that potential secrets were found. Under it, each finding gives its file, its pattern kind, and its masked match, followed by the code window where one exists, and a rule of forty hyphens closes each finding. The window spans one hundred characters either side of the match. Its highlighting is chosen by the file name where Pygments can, and guessed from the content where it cannot, rendered in a dark terminal style named fruity in the code.</p></section>
+<section><h2>Eighth sheet: masking, corrected</h2><p class="mask">Masking here is partial by design in the code. A match longer than eight characters keeps its first four and its last four characters visible, with asterisks filling the middle, so a finding can be matched against its source line by eye. A match of eight characters or fewer is hidden whole. Every pattern match inside a printed code window is masked by the same rule, not only the finding that produced the window. The README speaks of redaction without qualification; this sheet prints the qualification at full size.</p></section>
+<section><h2>Ninth sheet: the endings</h2><p>A path that does not exist exits 1 at once. A path that is neither file nor directory exits 1. Any file the scan was asked to read and could not, including a file that fails to decode as utf-8 text, is counted unreadable: the run prints that the scan is incomplete, names each such file, and exits 1 after the findings are shown. Where nothing was found and nothing was unreadable, the terminal states plainly that no secrets were found. Findings by themselves change no exit code: a tree full of secrets, all readable, still exits 0. Further code limits stand on record: a token longer than forty five characters is reported in forty five character pieces; highlighting rereads the source file once for every finding in it.</p></section>
+<section><h2>Last sheet: licence, in two parts</h2><p>The README licence line is printed as it stands in the preserved record below: Copyright (c) ShadowStrikeHQ. Separately, and labelled as a separate record, the LICENSE file at the repository root carries the MIT License, and its holder line gives a pen name first, a parenthetical given name with a single initial after it, and a handle last. The initial is not expanded anywhere on this site.</p></section>
+<section><h2>Defects and identity, recorded</h2><p>Identity tally for the live README: ShadowStrikeHQ appears 2 times, once in the install line and once in the licence line. The correct hyphenated ShadowGuard-AI appears 0 times in the README. The unhyphenated form appears 0 times. The title heading restyles the repo name as dlpcode-SecretScanner, with capitals the repo does not use. None of these faults is silently repaired in the preserved record. The parameter list omits the positional path and lists the exclude flag with no description. No exit behaviour is stated in the README. The opening account credits code syntax analysis, while detection itself is pattern matching alone and syntax awareness enters only in the highlighting step after a match.</p></section>
+<section><h2>The preserved README record</h2><pre>
+![Banner](banner.png)
 
-<main>
-  <section class="rail">
-    <nav aria-label="on this page">
-      <p class="mono"><a href="#run">Run it</a><br>
-      <a href="#files">The files</a><br>
-      <a href="#sheets">The sheets</a><br>
-      <a href="https://github.com/ShadowGuard-AI/dlpcode-secretscanner">The repo</a></p>
-    </nav>
-    <div>
-      <p class="lede">Dlpcode Secretscanner is one of my projects. The README in the repo is short, so this page sticks to what the files themselves show.</p>
-      <div class="grid">
-        <div class="card pop"><h3>What it is</h3>
-          <p>Dlpcode Secretscanner: 3 files, 200 counted
-          lines across Python 181, Markdown 16, Text 3. One job, done in the
-          open, in files you can read.</p></div>
-        <div class="card pop"><h3>The biggest piece</h3>
-          <p><code>main.py</code> carries the most
-          lines. If the project grows, that file is where the growth
-          lands first, for better or worse.</p></div>
-        <div class="card pop"><h3>The honest gap</h3>
-          <p>No test files yet. That is the honest gap, and the roadmap in the visuals folder says what the first one should cover.</p></div>
-      </div>
-      <section id="run">
-        <h2>Run it</h2>
-        <p>The repo README has the exact commands for this one. The
-        shape is the shape for most of my projects: clone it, read the
-        top file first so you know what will happen, then run it on
-        something you do not mind breaking.</p>
-        <p class="mono">$ git clone https://github.com/ShadowGuard-AI/dlpcode-secretscanner.git<br>$ cd dlpcode-secretscanner</p>
-      </section>
-      
-  <section aria-label="real code">
-    <h2>The code, as it sits in the repo</h2>
-    <p>From <code>main.py</code>, line 23 on. I did
-    not tidy it for the page. What you see is what the file has.</p>
-    <pre class="code"><code>
+# dlpcode-SecretScanner
+Scans code for accidentally committed secrets (API keys, passwords, etc.) using regular expressions, prints each finding with its surrounding code highlighted in the terminal, and redacts the matched secret itself in that output. - Focused on This category centers on scanning code repositories or individual code files for sensitive information such as API keys, passwords, credentials, personally identifiable information (PII), and other confidential data that should not be exposed. The tools use regular expressions and code syntax analysis to identify potentially leaked secrets within source code. Code highlighting and context are essential for accurate analysis.
 
-def setup_argparse():
-    &quot;&quot;&quot;
-    Sets up the argument parser for the command-line interface.
+Matched secrets are masked in every part of the output, including the code snippet around a finding. A run that cannot read a file it was asked to scan exits 1 and names the unreadable file, instead of reporting that no secrets were found.
 
-    Returns:
-        argparse.ArgumentParser: The configured argument parser.
-    &quot;&quot;&quot;
-    parser = argparse.ArgumentParser(description=&quot;Scans code for accidentally committed secrets.&quot;)
-    parser.add_argument(&quot;path&quot;, help=&quot;Path to the file or directory to scan.&quot;)
-    parser.add_argument(&quot;-v&quot;, &quot;--verbose&quot;, action=&quot;store_true&quot;, help=&quot;Enable verbose logging.&quot;)
-    parser.add_argument(&quot;-e&quot;, &quot;--exclude&quot;, help=&quot;Comma-separated list of file extensions to exclude (e.g., .txt,.log).&quot;, default=&quot;&quot;)
-    return parser
+## Install
+`git clone https://github.com/ShadowStrikeHQ/dlpcode-secretscanner`
 
+## Usage
+`./dlpcode-secretscanner [params]`
 
-def scan_file(file_path, exclude_extensions):
-    &quot;&quot;&quot;
-    Scans a single file for secrets using predefined patterns.
+## Parameters
+- `-h`: Show help message and exit
+- `-v`: Enable verbose logging.
+- `-e`: No description provided
 
-    Args:
-        file_path (str): The path to the file to scan.</code></pre>
-  </section>
-      <section id="files">
-        <h2>The files that matter</h2>
-        <table><tr><th>File</th><th>Lines</th></tr>
-        <tr><td><code>main.py</code></td><td>181</td></tr>
-        <tr><td><code>README.md</code></td><td>16</td></tr>
-        <tr><td><code>requirements.txt</code></td><td>3</td></tr>
-        </table>
-        <p>Names doing the work: <span class="mono">setup_argparse, scan_file, scan_directory, highlight_code, main</span>.</p>
-      </section>
-      <section id="sheets">
-        <h2>Drawn by hand</h2>
-        <p>I sketch my projects on notebook paper so I have to
-        understand them well enough to draw them. The full set,
-        with the counts and how they were counted, is the
-        <a href="https://github.com/ShadowGuard-AI/dlpcode-secretscanner/tree/main/dlpcode-secretscanner-Visuals">dlpcode-secretscanner-Visuals</a>
-        folder in the repo. Nothing is drawn over the binder holes.
-        That is a rule, not a style.</p>
-        <div class="shots">
-          <img src="assets/architecture.png" alt="Hand drawn architecture sheet for Dlpcode Secretscanner">
-          <img src="assets/flowchart.png" alt="Hand drawn flowchart sheet for Dlpcode Secretscanner">
-          <img src="assets/product-map.png" alt="Hand drawn product map sheet for Dlpcode Secretscanner">
-        </div>
-      </section>
-    </div>
-  </section>
-</main>
-<footer>
-  <p>Dlpcode Secretscanner is one of my projects. This page was written
-  from the repo itself on 2026-10-30: the counts are the
-  repo's counts, the code is the repo's code, and the gaps are the
-  repo's gaps.</p>
-</footer>
-</body>
-</html>
+## License
+Copyright (c) ShadowStrikeHQ</pre></section>
+</main></body></html>
